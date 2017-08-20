@@ -32,10 +32,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.Profile;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
@@ -52,6 +54,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
+import static com.example.mahmo.sanai3y.R.id.login;
 
 /**
  * A login screen that offers login via email/password.
@@ -76,6 +79,13 @@ public class LoginActivity extends AppCompatActivity implements
     };
     private static final int RC_SIGN_IN = 9001;
     public String googleIdToken;
+    public String googleUserName;
+    public String googleUserId;
+    public String googleUserEamil;
+    public Uri googleUserPhotoUrl;
+    public AccessToken facebookAccessToken;
+    public Profile profile;
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -105,7 +115,7 @@ public class LoginActivity extends AppCompatActivity implements
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                if (id == login || id == EditorInfo.IME_NULL) {
                     attemptLogin();
                     return true;
                 }
@@ -133,17 +143,25 @@ public class LoginActivity extends AppCompatActivity implements
             }
         });
 
-        //[ START facebook login ] -----------------------------------------------------------------
+//---------------------------------------------[ START Facebook login ] -----------------------------------------------------------------
         fbLoginButton = (LoginButton) findViewById(R.id.fb_login_button);
         callbackManager = CallbackManager.Factory.create();
 
-        //fbLoginButton.setReadPermissions("email", "public_profile");
+        fbLoginButton.setReadPermissions("email", "public_profile");
         // If using in a fragment
         //fbLoginButton.setFragment(this);
 
         fbLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                facebookAccessToken = loginResult.getAccessToken();
+                profile = Profile.getCurrentProfile();
+
+                Intent intent = new Intent(getApplicationContext(), UserProfileActivity.class);
+                intent.putExtra("id", profile.getId());
+                intent.putExtra("name", profile.getName());
+                intent.putExtra("imageUri", (profile.getProfilePictureUri(100, 100)).toString());
+                startActivity(intent);
             }
 
             @Override
@@ -155,10 +173,10 @@ public class LoginActivity extends AppCompatActivity implements
                 Toast.makeText(getApplicationContext(), "Connection Error", Toast.LENGTH_LONG).show();
             }
         });
-        //[ END facebook login ] -------------------------------------------------------------------
+//---------------------------------------------[ END Facebook login ] -----------------------------------------------------------------
 
 
-        // [ START google login ] ------------------------------------------------------------------
+//---------------------------------------------[ START Google login ] -----------------------------------------------------------------
 
         // [START configure_signin]
         // Configure sign-in to request the user's ID, email address, and basic
@@ -189,7 +207,7 @@ public class LoginActivity extends AppCompatActivity implements
         });
         // [END customize_button]
 
-        //[ End google login ] ---------------------------------------------------------------------
+//---------------------------------------------[ START Google login ] -----------------------------------------------------------------
     }
 
     @Override
@@ -391,6 +409,8 @@ public class LoginActivity extends AppCompatActivity implements
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
         }
+
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -413,6 +433,10 @@ public class LoginActivity extends AppCompatActivity implements
             GoogleSignInAccount acct = result.getSignInAccount();
 
             googleIdToken = acct.getIdToken();
+            googleUserId = acct.getId();
+            googleUserName = acct.getDisplayName();
+            googleUserEamil = acct.getEmail();
+            googleUserPhotoUrl = acct.getPhotoUrl();
 
             OptionalPendingResult<GoogleSignInResult> pendingResult =
                     Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
@@ -437,6 +461,12 @@ public class LoginActivity extends AppCompatActivity implements
         } else {
             Toast.makeText(getApplicationContext(), "Faild to Sign In !", Toast.LENGTH_LONG).show();
         }
+
+        Intent intent = new Intent(getApplicationContext(), UserProfileActivity.class);
+        intent.putExtra("id", googleUserId);
+        intent.putExtra("name", googleUserName);
+        intent.putExtra("imageUri", googleUserPhotoUrl.toString());
+        startActivity(intent);
     }
 
 

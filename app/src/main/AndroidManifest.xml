@@ -57,7 +57,9 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".CustomTabActivity"></activity>
+        <activity android:name=".CustomTabActivity" />
+        <activity android:name=".UserProfileActivity" />
+        <activity android:name=".Test"></activity>
     </application>
 
 </manifest>
