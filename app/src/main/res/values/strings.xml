@@ -22,4 +22,21 @@
     <string name="facebook_app_id">143261512932241</string>
     <string name="fb_login_protocol_scheme">fb143261512932241</string>
     <string name="ACCOUNT_KIT_CLIENT_TOKEN"></string>
+    <string name="title_activity_maps">Map</string>
+    <string name="google_sha1_key">32:92:C3:DD:4B:A2:BD:C8:00:8A:65:81:93:35:9A:FC:EC:ED:B4:09</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="spin">Choose a Map</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps_taped">MapsTapedActivity</string>
+
+    <string-array name="mapType">
+        <item>Map</item>
+        <item>Satellite</item>
+        <item>Hybrid</item>
+    </string-array>
+
 </resources>
