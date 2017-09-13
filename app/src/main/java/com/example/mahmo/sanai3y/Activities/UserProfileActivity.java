@@ -1,10 +1,12 @@
-package com.example.mahmo.sanai3y;
+package com.example.mahmo.sanai3y.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.mahmo.sanai3y.R;
 
 public class UserProfileActivity extends AppCompatActivity {
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.mahmo.sanai3y.MainActivity">
+    tools:context="com.example.mahmo.sanai3y.Activities.MainActivity">
 
     <Button
         android:id="@+id/mainActivityMapButton"

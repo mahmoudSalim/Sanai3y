@@ -1,4 +1,4 @@
-package com.example.mahmo.sanai3y;
+package com.example.mahmo.sanai3y.Activities;
 
 import android.Manifest;
 import android.app.PendingIntent;
@@ -22,6 +22,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mahmo.sanai3y.DetectedActivitiesIntentService;
+import com.example.mahmo.sanai3y.R;
+import com.example.mahmo.sanai3y.response.GeoLocationResponse;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.ActivityRecognition;
@@ -75,6 +78,8 @@ public class MapsActivity extends FragmentActivity implements
     private Spinner mapTypeSpinner;
     private double myLatitude;
     private double myLongitude;
+
+    private GeoLocationResponse geoLocationResponse;
 
 
     @Override
@@ -231,6 +236,8 @@ public class MapsActivity extends FragmentActivity implements
         Log.v("test", "OCON myLatitude = " + myLatitude);
         Log.v("test", "OCON myLongitude = " + myLongitude);
 
+        geoLocationResponse.setLatitude(myLatitude);
+        geoLocationResponse.setLongitude(myLongitude);
 
         if (mGoogleApiClient.isConnected()) {
             Log.v("test", "Here !!!!!");
@@ -291,7 +298,7 @@ public class MapsActivity extends FragmentActivity implements
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
+                // If com.example.mahmo.sanai3y.request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
@@ -318,7 +325,7 @@ public class MapsActivity extends FragmentActivity implements
                 }
             }
             case MY_PERMISSIONS_REQUEST_NETWORK: {
-                // If request is cancelled, the result arrays are empty.
+                // If com.example.mahmo.sanai3y.request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 

@@ -16,4 +16,12 @@
         <color name="base">#AAAAAA</color>
         <color name="iron">#CCCCCC</color>
         <color name="white">#FFFFFF</color>
+
+    <color name="grey_100">#F5F5F5</color>
+    <color name="grey_300">#E0E0E0</color>
+
+    <color name="fui_bgPhone">#43C5A5</color>
+    <color name="fui_buttonShadow">#64BEBEBE</color>
+    <color name="fui_errorColor">#DD2C00</color>
+
 </resources>

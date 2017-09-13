@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MapsActivity">
+    tools:context=".Activities.MapsActivity">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -53,7 +53,7 @@
             map:cameraTargetLng="34.89005"
             map:cameraTilt="65"
             map:cameraZoom="20"
-            tools:context="com.example.mahmo.sanai3y.MapsActivity"
+            tools:context="com.example.mahmo.sanai3y.Activities.MapsActivity"
             tools:ignore="MissingPrefix"
             tools:layout="@layout/dummy_mapviewfragment" />
 

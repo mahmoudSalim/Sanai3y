@@ -1,4 +1,4 @@
-package com.example.mahmo.sanai3y;
+package com.example.mahmo.sanai3y.Activities;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import static com.example.mahmo.sanai3y.MapsActivity.MY_PERMISSIONS_REQUEST_LOCATION;
+import com.example.mahmo.sanai3y.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
+                        MapsActivity.MY_PERMISSIONS_REQUEST_LOCATION);
             } else {
                 MapsActivity ma = new MapsActivity();
                 ma.permissionIsGranted = true;

@@ -1,4 +1,4 @@
-package com.example.mahmo.sanai3y;
+package com.example.mahmo.sanai3y.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.mahmo.sanai3y.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
