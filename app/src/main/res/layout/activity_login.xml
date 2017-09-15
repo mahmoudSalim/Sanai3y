@@ -135,13 +135,23 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal" />
 
-                <Button
+
+                <com.firebase.ui.auth.ui.idp.SupportVectorDrawablesButton xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:id="@+id/phone_number_login_button"
+                    style="@style/FirebaseUI.Button.AccountChooser.PhoneButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fui_sign_in_with_phone"
+                    tools:ignore="UnusedIds" />
+
+                <!--<Button
                     android:id="@+id/phone_number_login_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#ffaa00"
                     android:text="@string/sign_in_with_phone_number" />
-
+-->
                 <!--<ImageButton
                     android:id="@+id/img_google_login"
                     android:layout_width="wrap_content"

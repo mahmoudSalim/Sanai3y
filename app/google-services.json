@@ -1,7 +1,9 @@
 {
   "project_info": {
     "project_number": "224041877724",
-    "project_id": "sanai3y-177304"
+    "firebase_url": "https://sanai3y-177304.firebaseio.com",
+    "project_id": "sanai3y-177304",
+    "storage_bucket": "sanai3y-177304.appspot.com"
   },
   "client": [
     {
@@ -12,6 +14,18 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "224041877724-4gqnhvq6lhmdua3on0mmkqmtu6erqskc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mahmo.sanai3y",
+            "certificate_hash": "aa1e812631233fd1636dbf8d7595f8748f549132"
+          }
+        },
+        {
+          "client_id": "224041877724-me5krrlkhgmkqf6d1lrek4bmlm0bm0pp.apps.googleusercontent.com",
+          "client_type": 3
+        },
         {
           "client_id": "224041877724-d0l1jbuae8so2d5e5k7g51knjb0picv4.apps.googleusercontent.com",
           "client_type": 1,
@@ -35,11 +49,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "224041877724-me5krrlkhgmkqf6d1lrek4bmlm0bm0pp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }

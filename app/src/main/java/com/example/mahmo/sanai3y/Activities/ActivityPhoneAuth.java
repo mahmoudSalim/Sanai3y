@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.mahmo.sanai3y.R;
+import com.example.mahmo.sanai3y.request.ClientRequests;
+import com.example.mahmo.sanai3y.request.WorkerRequests;
+import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.ResultCodes;
@@ -27,7 +30,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
+
+import static com.google.firebase.FirebaseApp.initializeApp;
 
 public class ActivityPhoneAuth extends AppCompatActivity implements View.OnClickListener {
 
@@ -43,55 +49,70 @@ public class ActivityPhoneAuth extends AppCompatActivity implements View.OnClick
     private static final int STATE_VERIFY_SUCCESS = 4;
     private static final int STATE_SIGNIN_FAILED = 5;
     private static final int STATE_SIGNIN_SUCCESS = 6;
-
+    FirebaseAuth auth;
+    // [END declare_auth]
     // [START declare_auth]
     private FirebaseAuth mAuth;
-    // [END declare_auth]
-
     private boolean mVerificationInProgress = false;
     private String mVerificationId;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
-
     private EditText mPhoneNumberField;
     private EditText mVerificationField;
     private Button mStartButton;
     private Button mVerifyButton;
+    private String mPhoneNumber;
+    private FirebaseUser user;
+    private ClientRequests clientRequests;
+    private WorkerRequests workerRequests;
+    private FirebaseApp fireBaseApp;
 
+    public String getmPhoneNumber() {
+        return mPhoneNumber;
+    }
+
+    public void setmPhoneNumber(String mPhoneNumber) {
+        this.mPhoneNumber = mPhoneNumber;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_auth);
 
-        /*FirebaseAuth auth = FirebaseAuth.getInstance();
+        fireBaseApp = FirebaseApp.initializeApp(this);
+
+        auth = FirebaseAuth.getInstance(fireBaseApp);
         if (auth.getCurrentUser() != null) {
             // already signed in
-            startActivity(new Intent(ActivityPhoneAuth.this, UserProfileActivity.class));
+            startActivity(new Intent(ActivityPhoneAuth.this, MainActivity.class));
             finish();
         } else {
             // not signed in
             startActivityForResult(
                     AuthUI.getInstance()
                             .createSignInIntentBuilder()
+                            .setIsSmartLockEnabled(true /* OR use !BuildConfig.DEBUG */)
                             .setAvailableProviders(
                                     Arrays.asList(
-                                            new AuthUI.IdpConfig.Builder(AuthUI.PHONE_VERIFICATION_PROVIDER).build()
+                                            new AuthUI.IdpConfig.Builder(AuthUI
+                                                    .PHONE_VERIFICATION_PROVIDER)
+                                                    .build()
                                     ))
                             .build(),
                     RC_SIGN_IN);
-        }*/
+        }
 
 
-        mPhoneNumberField = (EditText) findViewById(R.id.phone_number);
-        mVerificationField = (EditText) findViewById(R.id.et_verify);
-        mStartButton = (Button) findViewById(R.id.send_code);
-        mVerifyButton = (Button) findViewById(R.id.verify_button);
+        mPhoneNumberField = findViewById(R.id.phone_number);
+        mVerificationField = findViewById(R.id.et_verify);
+        mStartButton = findViewById(R.id.send_code);
+        mVerifyButton = findViewById(R.id.verify_button);
 
         mStartButton.setOnClickListener(this);
         mVerifyButton.setOnClickListener(this);
 
-        FirebaseApp.initializeApp(this);
+        initializeApp(this);
 
         // [START initialize_auth]
         mAuth = FirebaseAuth.getInstance();
@@ -160,6 +181,9 @@ public class ActivityPhoneAuth extends AppCompatActivity implements View.OnClick
                 // Save verification ID and resending token so we can use them later
                 mVerificationId = verificationId;
                 mResendToken = token;
+
+                Log.d(TAG, "token:" + token);
+
 
                 // [START_EXCLUDE]
                 // Update UI
@@ -402,6 +426,13 @@ public class ActivityPhoneAuth extends AppCompatActivity implements View.OnClick
             IdpResponse response = IdpResponse.fromResultIntent(data);
             // Successfully signed in
             if (resultCode == ResultCodes.OK) {
+
+                user = FirebaseAuth.getInstance().getCurrentUser();
+                mPhoneNumber = user.getPhoneNumber();
+
+                IdpResponse idpResponse = IdpResponse.fromResultIntent(data);
+
+
                 startActivity(new Intent(ActivityPhoneAuth.this, MapsActivity.class));
                 finish();
                 return;

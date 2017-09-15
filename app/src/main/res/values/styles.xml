@@ -61,10 +61,23 @@
         <item name="android:textSize">36sp</item>
     </style>
 
+
     <style name="FirebaseUI.Button.AccountChooser.PhoneButton">
-        <!--<item name="drawableStartCompat">@drawable/fui_ic_phone_white_24dp</item>-->
+        <item name="drawableStartCompat">@drawable/fui_ic_phone_white_24dp</item>
         <item name="android:background">@drawable/fui_idp_button_background_phone</item>
         <item name="android:textColor">#ffffff</item>
     </style>
+
+    <style name="FirebaseUI.TextInputEditText.PhoneField">
+        <item name="android:hint">@string/fui_phone_hint</item>
+        <item name="android:inputType">phone</item>
+        <item name="android:imeOptions">actionNext</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingTop">16dp</item>
+    </style>
+
+    <style name="Base.TextAppearance.AppCompat.Large">22sp</style>
+
+    <style name="Base.TextAppearance.AppCompat.Medium">18sp</style>
 
 </resources>

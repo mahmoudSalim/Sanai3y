@@ -385,7 +385,7 @@ public class MapsActivity extends FragmentActivity implements
     }
 
     private void chooseMap() {
-        mapTypeSpinner = (Spinner) findViewById(R.id.spinner);
+        mapTypeSpinner = findViewById(R.id.spinner);
         spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.mapType, android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mapTypeSpinner.setAdapter(spinnerAdapter);
@@ -521,10 +521,10 @@ public class MapsActivity extends FragmentActivity implements
 
                     View v = getLayoutInflater().inflate(R.layout.marker_info_window, null);
 
-                    final TextView infoName = (TextView) v.findViewById(R.id.infoName);
-                    TextView infoSnippet = (TextView) v.findViewById(R.id.infoSnippet);
-                    TextView infoProfileLink = (TextView) v.findViewById(R.id.infoProfileLink);
-                    final ImageView infoImage = (ImageView) v.findViewById(R.id.infoImage);
+                    final TextView infoName = v.findViewById(R.id.infoName);
+                    TextView infoSnippet = v.findViewById(R.id.infoSnippet);
+                    TextView infoProfileLink = v.findViewById(R.id.infoProfileLink);
+                    final ImageView infoImage = v.findViewById(R.id.infoImage);
 
                     infoName.setText(marker.getTitle());
                     infoSnippet.setText(marker.getSnippet());

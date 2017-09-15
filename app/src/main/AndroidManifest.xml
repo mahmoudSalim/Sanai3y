@@ -65,6 +65,11 @@
         <service android:name=".DetectedActivitiesIntentService" />
 
         <activity android:name=".Activities.ActivityPhoneAuth"></activity>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="${fabric_io_id}"
+            tools:replace="android:value" />
     </application>
 
 </manifest>

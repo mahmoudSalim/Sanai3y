@@ -1,8 +1,23 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "26.0.0"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "com.example.mahmo.sanai3y"
         minSdkVersion 16
@@ -12,6 +27,11 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
+
+        manifestPlaceholders = [fabric_io_id: "698e6545510990b430b1c41c4f7453741b646114"]
+
+        vectorDrawables.useSupportLibrary = true
+
     }
     buildTypes {
         release {
@@ -43,47 +63,49 @@ dependencies {
     })
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.android.support:appcompat-v7:26.0.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.0'
-    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:design:26.0.1'
+    compile 'com.android.support:support-compat:26.0.1'
+    compile 'com.android.support:support-core-utils:26.0.1'
+    compile 'com.android.support:support-core-ui:26.0.1'
+    compile 'com.android.support:support-media-compat:26.0.1'
+    compile 'com.android.support:support-fragment:26.0.1'
+    compile 'com.android.support:support-vector-drawable:26.0.1'
+    compile 'com.android.support:animated-vector-drawable:26.0.1'
+    compile 'com.android.support:support-annotations:26.0.1'
+    compile 'com.android.support:support-v4:26.0.1'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.facebook.android:facebook-android-sdk:4.6.0'
     compile 'com.facebook.android:account-kit-sdk:4.+'
-    compile 'com.google.android.gms:play-services-auth:9.8.0'
+    compile 'com.google.android.gms:play-services-auth:11.0.4'
     compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.android.support:support-compat:25.3.1'
-    compile 'com.android.support:support-core-utils:25.3.1'
-    compile 'com.android.support:support-core-ui:25.3.1'
-    compile 'com.android.support:support-media-compat:25.3.1'
-    compile 'com.android.support:support-fragment:25.3.1'
     compile 'com.android.support:multidex:1.0.1'
-    compile 'com.android.support:support-vector-drawable:25.3.1'
-    compile 'com.android.support:animated-vector-drawable:25.3.1'
-    compile 'com.android.support:support-annotations:25.3.1'
     compile 'de.hdodenhof:circleimageview:1.3.0'
-    compile 'com.google.android.gms:play-services:11.2.0'
-    compile 'com.google.android.gms:play-services-location:11.2.0'
-    compile 'com.google.android.gms:play-services-maps:11.2.0'
-    compile 'com.google.android.gms:play-services-places:11.2.0'
-    compile 'com.google.android.gms:play-services-nearby:11.2.0'
-    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.google.android.gms:play-services:11.0.4'
+    compile 'com.google.android.gms:play-services-location:11.0.4'
+    compile 'com.google.android.gms:play-services-maps:11.0.4'
+    compile 'com.google.android.gms:play-services-places:11.0.4'
+    compile 'com.google.android.gms:play-services-nearby:11.0.4'
     compile 'com.appolica:interactive-info-window:v1.0.6'
-    compile 'com.google.firebase:firebase-auth:11.2.0'
+    compile 'com.google.firebase:firebase-auth:11.0.4'
     compile 'com.firebaseui:firebase-ui:2.0.1'
-    compile 'com.google.firebase:firebase-core:9.6.1'
-    compile 'com.google.firebase:firebase-ads:9.6.1'
-    compile 'com.google.firebase:firebase-config:9.6.1'
-    compile 'com.google.firebase:firebase-invites:9.6.1'
-    compile "com.google.firebase:firebase-messaging:9.6.1"
+    compile 'com.google.firebase:firebase-core:11.0.4'
+    compile 'com.google.firebase:firebase-ads:11.0.4'
+    compile 'com.google.firebase:firebase-config:11.0.4'
+    compile 'com.google.firebase:firebase-invites:11.0.4'
+    compile "com.google.firebase:firebase-messaging:11.0.4"
     compile 'com.squareup.okhttp3:okhttp:3.9.0'
     testCompile 'com.squareup.okhttp3:mockwebserver:3.9.0'
     compile 'com.android.volley:volley:1.0.0'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile "com.google.android.gms:play-services-gcm:11.0.4"
+    compile 'com.firebaseui:firebase-ui-auth:2.3.0'
     testCompile 'junit:junit:4.12'
+    compile('com.digits.sdk.android:digits:2.0.8@aar') {
+        transitive = true;
+    }
 }
-//apply plugin: 'com.google.gms.google-services'
 
-
-
-
+apply plugin: 'com.google.gms.google-services'

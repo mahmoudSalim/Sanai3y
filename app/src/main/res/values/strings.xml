@@ -51,6 +51,11 @@
     <string name="fui_verify_phone_number_title" translation_description="Phone number entry form title">Enter your phone number</string>
     <string name="fui_verify_phone_number" translation_description="Button text to submit confirmation code and complete phone verification">Verify Phone Number</string>
 
+    <string name="fui_phone_hint" translation_description="Hint for phone input field">Phone Number</string>
+    <string name="fui_done" translation_description="Progress dialog success transition once sms is sent">Done</string>
+
+    <string name="fui_provider_name_phone">Phone</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
