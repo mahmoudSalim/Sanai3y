@@ -4,7 +4,8 @@ package com.example.mahmo.sanai3y.Enum;
  * Created by Ahmed on 12-Sep-17.
  */
 
-public enum WorkerType {
+public enum
+WorkerType {
     All,
     AirConditioningTechnician,
     Barber,

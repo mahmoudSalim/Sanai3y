@@ -61,6 +61,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps_taped">MapsTapedActivity</string>
     <string name="loading">Loading…</string>
+    <string name="client_starter_button">Client</string>
+    <string name="worker_starter_button">Sanai3y</string>
 
     <string-array name="mapType">
         <item>Map</item>

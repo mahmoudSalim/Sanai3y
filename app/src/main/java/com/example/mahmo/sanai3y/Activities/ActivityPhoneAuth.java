@@ -10,10 +10,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.mahmo.sanai3y.R;
 import com.example.mahmo.sanai3y.request.ClientRequests;
 import com.example.mahmo.sanai3y.request.WorkerRequests;
+import com.example.mahmo.sanai3y.response.ClientResponse;
+import com.example.mahmo.sanai3y.util.Snai3yApplication;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
@@ -32,6 +35,10 @@ import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.google.firebase.FirebaseApp.initializeApp;
 
@@ -67,6 +74,7 @@ public class ActivityPhoneAuth extends AppCompatActivity implements View.OnClick
     private WorkerRequests workerRequests;
     private FirebaseApp fireBaseApp;
 
+
     public String getmPhoneNumber() {
         return mPhoneNumber;
     }
@@ -83,10 +91,43 @@ public class ActivityPhoneAuth extends AppCompatActivity implements View.OnClick
         fireBaseApp = FirebaseApp.initializeApp(this);
 
         auth = FirebaseAuth.getInstance(fireBaseApp);
+       /* if(auth.getCurrentUser()!= null){
+            signOut();
+        }*/
         if (auth.getCurrentUser() != null) {
             // already signed in
-            startActivity(new Intent(ActivityPhoneAuth.this, MainActivity.class));
-            finish();
+
+            if (Snai3yApplication.getUserType() == 1) {
+                Call<ClientResponse> call = Snai3yApplication.getClientRequests().getByPhoneNumber(auth.getCurrentUser().getPhoneNumber());
+
+                call.enqueue(new Callback<ClientResponse>() {
+                    @Override
+                    public void onResponse(Call<ClientResponse> call, Response<ClientResponse> response) {
+                        if (response.isSuccessful()) {
+                            Snai3yApplication.setClientResponse(response.body());
+                            Snai3yApplication.setUserId(Snai3yApplication.getClientResponse().getId());
+                            Intent intent = new Intent(ActivityPhoneAuth.this, ClientMapActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Snai3yApplication.setUserId(-1);
+                            Intent intent = new Intent(ActivityPhoneAuth.this, ClientRegisterActivity.class);
+                            intent.putExtra("PHONE", auth.getCurrentUser().getPhoneNumber());
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ClientResponse> call, Throwable t) {
+                        Toast.makeText(ActivityPhoneAuth.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
+//                Toast.makeText(ActivityPhoneAuth.this, Snai3yApplication.getUserType(), Toast.LENGTH_SHORT).show();
+
+                Log.v("typeee", "" + Snai3yApplication.getUserType());
+            }
         } else {
             // not signed in
             startActivityForResult(
@@ -266,6 +307,7 @@ public class ActivityPhoneAuth extends AppCompatActivity implements View.OnClick
 
                             FirebaseUser user = task.getResult().getUser();
                             // [START_EXCLUDE]
+
                             updateUI(STATE_SIGNIN_SUCCESS, user);
                             // [END_EXCLUDE]
                         } else {
@@ -432,9 +474,37 @@ public class ActivityPhoneAuth extends AppCompatActivity implements View.OnClick
 
                 IdpResponse idpResponse = IdpResponse.fromResultIntent(data);
 
+                if (Snai3yApplication.getUserType() == 1) {
+                    Call<ClientResponse> call = Snai3yApplication.getClientRequests().getByPhoneNumber(auth.getCurrentUser().getPhoneNumber());
 
-                startActivity(new Intent(ActivityPhoneAuth.this, MapsActivity.class));
-                finish();
+                    call.enqueue(new Callback<ClientResponse>() {
+                        @Override
+                        public void onResponse(Call<ClientResponse> call, Response<ClientResponse> response) {
+                            if (response.isSuccessful()) {
+                                Snai3yApplication.setClientResponse(response.body());
+                                Snai3yApplication.setUserId(Snai3yApplication.getClientResponse().getId());
+                                Intent intent = new Intent(ActivityPhoneAuth.this, ClientMapActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Snai3yApplication.setUserId(-1);
+                                Intent intent = new Intent(ActivityPhoneAuth.this, ClientRegisterActivity.class);
+                                intent.putExtra("PHONE", auth.getCurrentUser().getPhoneNumber());
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ClientResponse> call, Throwable t) {
+                            Toast.makeText(ActivityPhoneAuth.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+//                Toast.makeText(ActivityPhoneAuth.this, Snai3yApplication.getUserType(), Toast.LENGTH_SHORT).show();
+
+                    Log.v("typeee", "" + Snai3yApplication.getUserType());
+                }
                 return;
             } else {
                 // Sign in failed

@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.mahmo.sanai3y.DetectedActivitiesIntentService;
 import com.example.mahmo.sanai3y.R;
+import com.example.mahmo.sanai3y.response.ClientResponse;
 import com.example.mahmo.sanai3y.response.GeoLocationResponse;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -44,7 +45,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends FragmentActivity implements
+public class ClientMapActivity extends FragmentActivity implements
         OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -80,6 +81,8 @@ public class MapsActivity extends FragmentActivity implements
     private double myLongitude;
 
     private GeoLocationResponse geoLocationResponse;
+
+    private ClientResponse client;
 
 
     @Override
@@ -236,8 +239,8 @@ public class MapsActivity extends FragmentActivity implements
         Log.v("test", "OCON myLatitude = " + myLatitude);
         Log.v("test", "OCON myLongitude = " + myLongitude);
 
-        geoLocationResponse.setLatitude(myLatitude);
-        geoLocationResponse.setLongitude(myLongitude);
+//        geoLocationResponse.setLatitude(myLatitude);
+//        geoLocationResponse.setLongitude(myLongitude);
 
         if (mGoogleApiClient.isConnected()) {
             Log.v("test", "Here !!!!!");
@@ -539,7 +542,7 @@ public class MapsActivity extends FragmentActivity implements
             mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                 @Override
                 public void onInfoWindowClick(Marker marker) {
-                    Intent intent = new Intent(MapsActivity.this, UserProfileActivity.class);
+                    Intent intent = new Intent(ClientMapActivity.this, UserProfileActivity.class);
                     Bundle bundle = new Bundle();
                     intent.putExtra("infoName", mInfoName[0]);
                     bundle.putInt("infoUserImage", R.drawable.logo2);
