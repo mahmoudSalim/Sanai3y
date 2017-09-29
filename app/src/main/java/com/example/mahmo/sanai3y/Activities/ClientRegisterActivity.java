@@ -1,6 +1,7 @@
 package com.example.mahmo.sanai3y.Activities;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -85,32 +86,7 @@ public class ClientRegisterActivity extends AppCompatActivity implements View.On
         if (name.isEmpty() || phoneNumber.isEmpty()) {
             Toast.makeText(this, "Complete All Data", Toast.LENGTH_SHORT).show();
         } else {
-            Call<ClientResponse> call = Snai3yApplication.getClientRequests().create(name, phoneNumber, (imageFile != null) ? imageFile.toString() : "");
-            call.enqueue(new Callback<ClientResponse>() {
-                @Override
-                public void onResponse(Call<ClientResponse> call, Response<ClientResponse> response) {
-                    if (response.isSuccessful()) {
-                        ClientResponse client = response.body();
-                        Snai3yApplication.setUserId(client.getId());
-                        Intent i = new Intent(ClientRegisterActivity.this, ClientMapActivity.class);
-                        startActivity(i);
-                        finish();
-                    } else {
-                        try {
-                            Toast.makeText(ClientRegisterActivity.this, response.code() + " " + response.message() + " " + response.errorBody().string(), Toast.LENGTH_SHORT).show();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ClientResponse> call, Throwable t) {
-                    t.printStackTrace();
-                }
-            });
-
-
+            callService(ClientRegisterActivity.this, ClientMapActivity.class, name, phoneNumber);
         }
 
     }
@@ -205,4 +181,30 @@ public class ClientRegisterActivity extends AppCompatActivity implements View.On
         }
     }
 
+    private void callService(final Context sourceActivity, final Class destinationActivity, String name, String phoneNumber) {
+        Call<ClientResponse> call = Snai3yApplication.getClientRequests().create(name, phoneNumber, (imageFile != null) ? imageFile.toString() : "");
+        call.enqueue(new Callback<ClientResponse>() {
+            @Override
+            public void onResponse(Call<ClientResponse> call, Response<ClientResponse> response) {
+                if (response.isSuccessful()) {
+                    ClientResponse client = response.body();
+                    Snai3yApplication.setUserId(client.getId());
+                    Intent i = new Intent(sourceActivity, destinationActivity);
+                    startActivity(i);
+                    finish();
+                } else {
+                    try {
+                        Toast.makeText(ClientRegisterActivity.this, response.code() + " " + response.message() + " " + response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ClientResponse> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
 }

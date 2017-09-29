@@ -141,7 +141,7 @@ public class LoginActivity extends AppCompatActivity implements
         mCreateAccount.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mCreateAccountIntent = new Intent(getApplicationContext(),SignUpActivity.class);
+                Intent mCreateAccountIntent = new Intent(getApplicationContext(), WorkerRegisterActivity.class);
                 startActivity(mCreateAccountIntent);
             }
         });
@@ -160,7 +160,7 @@ public class LoginActivity extends AppCompatActivity implements
                 facebookAccessToken = loginResult.getAccessToken();
                 profile = Profile.getCurrentProfile();
 
-                Intent intent = new Intent(getApplicationContext(), UserProfileActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ClientMapActivity.class);
                 intent.putExtra("id", profile.getId());
                 intent.putExtra("name", profile.getName());
                 intent.putExtra("imageUri", (profile.getProfilePictureUri(100, 100)).toString());
